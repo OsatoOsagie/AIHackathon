@@ -42,19 +42,28 @@ async def conversation():
     #print("User's Details:", user_name, user_gender, user_yob)
     #print("User's Symptoms:", user_symptoms)
     #print("User's Medical History:", user_medical_history)
-    start_conv = healthily.HealthilyApi()
-    response = await start_conv.start_conversation(user_name, user_gender, user_yob, user_symptoms)
+    api = healthily.HealthilyApi()
+    response = await api.start_conversation(user_name, user_gender, user_yob, user_symptoms)
     # Parse JSON data
     #data = json.loads(response)
 
     # Extract question and choices
-    question = response['question']['messages'][0]['value']
-    choices = {choice["id"]: choice['label'] for choice in response['question']['choices']}
-    #print(question)
-    #print(choices)
-    
-    return response    
+    while  "report" not  in response:
+        question = ' '.join([question['value'] for question in response['question']['messages']])
+        choices = {choice['id']: choice['label'] for choice in response['question']['choices']}
+        #print(question)
+        #print(choices)
+        await next_question(question,choices)
+       
 
+async def next_question(question,choices):
+    actions = []
+
+    for choice_id, choice_label in choices.items():
+        action = cl.Action(name=choice_id, value=choice_id, label=choice_label, description=choice_label)
+        actions.append(action)
+
+    await cl.Message(content=question, actions=actions).send()
 
 @cl.action_callback("Initial Assessment")
 async def on_action(action):
@@ -66,6 +75,7 @@ async def on_action(action):
     response = await conversation()  # Trigger the conversation after the user has agreed
     #print(response)
     return True
+
 
 @cl.on_chat_start
 async def main():
