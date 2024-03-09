@@ -1,8 +1,11 @@
-import chainlit as cl   
+import chainlit as cl
+from backend import healthily
+import json
+
 
 
 #Disctionary to define questions
-questions = {
+initial_questions = {
     "name": "Please enter your Name.",
     "gender": "Please enter your Gender.",
     "yob": "Please enter your Year of Birth.",
@@ -24,7 +27,7 @@ user_agreed = False
 
 async def conversation():
     # Iterate over questions
-    for key, question in questions.items():
+    for key, question in initial_questions.items():
         answer = await cl.AskUserMessage(content=question).send()
         user_answers[key] = answer['output'] if answer else None
 
@@ -36,9 +39,22 @@ async def conversation():
     #user_medical_history = user_answers["medical_history"]
 
     # Do something with the stored user answers
-    print("User's Details:", user_name, user_gender, user_yob)
-    print("User's Symptoms:", user_symptoms)
+    #print("User's Details:", user_name, user_gender, user_yob)
+    #print("User's Symptoms:", user_symptoms)
     #print("User's Medical History:", user_medical_history)
+    start_conv = healthily.HealthilyApi()
+    response = await start_conv.start_conversation(user_name, user_gender, user_yob, user_symptoms)
+    # Parse JSON data
+    #data = json.loads(response)
+
+    # Extract question and choices
+    question = response['question']['messages'][0]['value']
+    choices = {choice["id"]: choice['label'] for choice in response['question']['choices']}
+    #print(question)
+    #print(choices)
+    
+    return response    
+
 
 @cl.action_callback("Initial Assessment")
 async def on_action(action):
@@ -47,7 +63,8 @@ async def on_action(action):
     # Remove the action button from the chatbot user interface
     await action.remove()
     cl.Text(name="simple_text", content="You have agreed to the Terms and Conditions", display="inline")
-    await conversation()  # Trigger the conversation after the user has agreed
+    response = await conversation()  # Trigger the conversation after the user has agreed
+    #print(response)
     return True
 
 @cl.on_chat_start
