@@ -25,5 +25,5 @@ headers = {
 
 def login():
     response = requests.post(url, json=payload, headers=headers)
-    print(response.text)
+    #print(response.text)
     return response.text

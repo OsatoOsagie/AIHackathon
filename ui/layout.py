@@ -1,4 +1,4 @@
-import chainlit as cl
+import chainlit as cl   
 
 
 #Disctionary to define questions
@@ -20,11 +20,7 @@ user_answers = {
 
 user_agreed = False
 
-# Rename the chatbot author
-@cl.author_rename
-def rename(orig_author: str):
-    rename_dict = {"Chatbot": "Zenith Care"}
-    return rename_dict.get(orig_author, orig_author)
+
 
 async def conversation():
     # Iterate over questions
@@ -44,7 +40,7 @@ async def conversation():
     print("User's Symptoms:", user_symptoms)
     #print("User's Medical History:", user_medical_history)
 
-@cl.action_callback("Agree")
+@cl.action_callback("Initial Assessment")
 async def on_action(action):
     global user_agreed
     user_agreed = True
@@ -57,10 +53,7 @@ async def on_action(action):
 @cl.on_chat_start
 async def main():
     actions = [
-        cl.Action(name="Agree", value="true", description="Agree")
+        cl.Action(name="Initial Assessment", value="Agree", label="Agree", description="Agree")
     ]
     content = "Welcome to Zenith Care. Please agree to the Terms and Conditions to start using Zenith Care"
     await cl.Message(content=content, actions=actions).send()
-
-    
-
