@@ -23,6 +23,11 @@ user_answers = {
 
 user_agreed = False
 
+all_ids = []          # List to store all available IDs
+chosen_ids = []       # List to store selected IDs
+not_chosen_ids = []   # List to store IDs not selected
+
+
 
 
 async def conversation():
@@ -48,22 +53,46 @@ async def conversation():
     #data = json.loads(response)
 
     # Extract question and choices
-    while  "report" not  in response:
-        question = ' '.join([question['value'] for question in response['question']['messages']])
-        choices = {choice['id']: choice['label'] for choice in response['question']['choices']}
-        #print(question)
-        #print(choices)
-        await next_question(question,choices)
+    while 'report' not in response: 
+        await next_question(response)
        
 
-async def next_question(question,choices):
+async def next_question(response):
+    global all_ids
+    question = ' '.join([question['value'] for question in response['question']['messages']])
+    choices = {choice['id']: choice['label'] for choice in response['question']['choices']}
     actions = []
 
-    for choice_id, choice_label in choices.items():
-        action = cl.Action(name=choice_id, value=choice_id, label=choice_label, description=choice_label)
-        actions.append(action)
+    # Reset all_ids before updating with new IDs
+    all_ids = list(choices.keys())
 
-    await cl.Message(content=question, actions=actions).send()
+    for choice_id, choice_label in choices.items():
+        action = cl.Action(name="Further_Actions", value=choice_id, label=choice_label, description=choice_label)
+        actions.append(action)
+    user_response = await cl.AskActionMessage(content=question, actions=actions).send()
+    
+
+@cl.action_callback("Further_Actions")
+async def on_further_action(action):
+    global chosen_ids, not_chosen_ids
+    print(action)
+    # Get the selected ID from the action
+    selected_id = action.value
+
+    # Remove the selected ID from all_ids
+    all_ids.remove(selected_id)
+
+    # Check if the ID is already in chosen_ids
+    if selected_id not in chosen_ids:
+        chosen_ids.append(selected_id)
+    else:
+        chosen_ids.remove(selected_id)
+        not_chosen_ids.append(selected_id)
+    
+    print("All IDs:", all_ids)
+    print("Chosen IDs:", chosen_ids)
+    print("Not Chosen IDs:", not_chosen_ids)
+    return chosen_ids,not_chosen_ids
 
 @cl.action_callback("Initial Assessment")
 async def on_action(action):
@@ -79,6 +108,10 @@ async def on_action(action):
 
 @cl.on_chat_start
 async def main():
+    await cl.Avatar(
+        name="Zenith Care",
+        url="public/favicon.png",
+    ).send()
     actions = [
         cl.Action(name="Initial Assessment", value="Agree", label="Agree", description="Agree")
     ]
