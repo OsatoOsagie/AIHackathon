@@ -1,5 +1,5 @@
 import chainlit as cl
-from backend import healthily
+from backend import healthily, login
 import json
 
 
@@ -47,6 +47,13 @@ async def conversation():
     user_symptoms = user_answers["symptoms"]
     #user_medical_history = user_answers["medical_history"]
 
+    global user_details
+
+    user_details = ','.join(user_name)
+    user_details = ','.join(user_gender)
+    user_details = ','.join(user_yob)
+    user_details = ','.join(user_symptoms)
+
     # Do something with the stored user answers
     #print("User's Details:", user_name, user_gender, user_yob)
     #print("User's Symptoms:", user_symptoms)
@@ -58,39 +65,48 @@ async def conversation():
 
     # Extract question and choices
     while 'report' not in response:
-        await next_question(response)
+        new_reponse = await next_question(response)
+        response = new_reponse
        
 
 async def next_question(response):
     global all_ids
-    question = ' '.join([question['value'] for question in response['question']['messages']])
-    choices = {choice['id']: choice['label'] for choice in response['question']['choices']}
+    if response['question']['type'] == "name":
+        question = ' '.join([question['text'] for question in response['question']['messages']])
+    else:
+        question = ' '.join([question['value'] for question in response['question']['messages']])
+    choices = {}
+
+    if 'choices' in response['question']:
+        choices = {choice['id']: choice['label'] for choice in response['question']['choices']}
+        options = ', '.join(choices.values())
+        all_ids = list(choices.keys())
+        elements = [
+            cl.Text(name=question, content=options, display="inline")
+        ]
+        await cl.Message(
+            content="",
+            elements=elements,
+        ).send()
+        user_response = await  cl.AskUserMessage(content="Select what option(s) apply to you.",).send()
+        user_input = user_response['output']
+        chosen_values = user_input.split(', ')
+
+        for choice_value in chosen_values:
+            for a_key in choices.keys():
+                if choices[a_key] == choice_value :
+                    chosen_ids.append(a_key)
+        
+        for id in all_ids:
+            if id not in chosen_ids:
+                not_chosen_ids.append(id)
+
+        print("All:", all_ids)
+        print("Choosen:", chosen_ids)
+        print("Not Choosen:", not_chosen_ids)
+    else:
+        user_response = await  cl.AskUserMessage(content=question,).send()
     answer_type = response['question']['type']
-    options = ', '.join(choices.values())
-    all_ids = list(choices.keys())
-    elements = [
-        cl.Text(name=question, content=options, display="inline")
-    ]
-
-    await cl.Message(
-        content="",
-        elements=elements,
-    ).send()
-    
-    user_response = await  cl.AskUserMessage(content="Select what option(s) apply to you.",).send()
-
-    user_input = user_response['output']
-    chosen_values = user_input.split(', ')
-
-    for choice_value in chosen_values:
-        for a_key in choices.keys():
-            if choices[a_key] == choice_value :
-                chosen_ids.append(a_key)
-    
-    for id in all_ids:
-        if id not in chosen_ids:
-            not_chosen_ids.append(id)
-
 
     api = healthily.HealthilyApi()
     response = await api.respond_to_healthily(chosen_ids, not_chosen_ids, answer_type)
@@ -153,5 +169,5 @@ async def main():
     actions = [
         cl.Action(name="Initial Assessment", value="Agree", label="Agree", description="Agree")
     ]
-    content = "Welcome to Zenith Care. Please agree to the Terms and Conditions to start using Zenith Care"
+    content = "Welcome to Zenith Care. Please agree to the following terms to start using Zenith Care: \n 1. I'm over 18. \n 2. Zenith Care and Healthily can process my health data to help me manage my health with recommendations, information, and care options, as described in the Privacy Policy. \n"
     await cl.Message(content=content, actions=actions).send()

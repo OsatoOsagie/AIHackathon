@@ -10,6 +10,7 @@ search_endpoint = "https://portal.your.md/v4/search/symptoms"
 healthily_api_token = os.getenv('HEALTHILY_API_TOKEN', 'jmK9KVKDXsJpyRsnrTe9r1aMEEfAGSsq.X1rf6MAlzM3S2ySVZwM82fbSCdLAo25P')
 healthily_login_endpoint = "https://portal.your.md/v4/login"
 healthily_api_key = os.getenv('HEALTHILY_API_KEY', 'bt2xkYywWw9RDaLJv2PaU5dWwawfhUXH1tBYMpUI')
+access_token = 'None'
 
 class HealthilyApi:
     def __init__(self):
@@ -127,9 +128,12 @@ class HealthilyApi:
         stringified = name + gender + str(year_of_birth) + initial_symptom
         stringified_hash = self.create_hash(stringified)
         self.access_token = await self.get_access_token(stringified_hash)
+        global access_token
+        access_token = self.access_token
 
     async def start_conversation(self,name, gender, year_of_birth,initial_symptom):
-        await self.login(name, gender, year_of_birth,initial_symptom)
+        get_token = await self.login(name, gender, year_of_birth,initial_symptom)
+        print(get_token)
         query = {"answer": {
                 "type": "entry",
                 "name": name,
@@ -143,9 +147,10 @@ class HealthilyApi:
         print(json.dumps(response,indent=4))
         return response
     
-    async def respond_to_healthily(self,chosen_ids,not_chosen_ids, answer_type):
+    async def respond_to_healthily(self,chosen_ids,not_chosen_ids, answer_type,):
         request = self.generate_answer_object(chosen_ids,not_chosen_ids,answer_type,self.conversation_id)
-        response = await self.send_response_query(request,self.access_token)
+        print("Token:", access_token)
+        response = await self.send_response_query(request,access_token)
         print(json.dumps(response,indent=4))
         return response
     
