@@ -24,12 +24,6 @@ user_answers = {
 user_agreed = False
 
 all_ids = []          # List to store all available IDs
-chosen_ids = []       # List to store selected IDs
-not_chosen_ids = []   # List to store IDs not selected
-
-all_values = []          # List to store all available IDs
-chosen_values = []       # List to store selected IDs
-not_chosen_values = []   # List to store IDs not selected
 
 
 
@@ -65,22 +59,29 @@ async def conversation():
 
     # Extract question and choices
     while 'report' not in response:
-        new_reponse = await next_question(response)
+        new_reponse = await next_question(response, api)
         response = new_reponse
        
 
-async def next_question(response):
+async def next_question(response, api):
     global all_ids
-    if response['question']['type'] == "name":
+    if response['question']['type'] in ["name","health_background","factor", "symptoms"]:
         question = ' '.join([question['text'] for question in response['question']['messages']])
     else:
         question = ' '.join([question['value'] for question in response['question']['messages']])
     choices = {}
 
     if 'choices' in response['question']:
-        choices = {choice['id']: choice['label'] for choice in response['question']['choices']}
+        choice_value = 'label'
+        if response['question']['type'] == 'health_background':
+            choice_value = 'long_name'
+        elif response['question']['type'] in ["factor","symptoms"]:
+            choice_value = 'text'
+        choices = {choice['id']: choice[choice_value] for choice in response['question']['choices']}
         options = ', '.join(choices.values())
         all_ids = list(choices.keys())
+        chosen_ids = [] 
+        not_chosen_ids = []
         elements = [
             cl.Text(name=question, content=options, display="inline")
         ]
@@ -108,7 +109,6 @@ async def next_question(response):
         user_response = await  cl.AskUserMessage(content=question,).send()
     answer_type = response['question']['type']
 
-    api = healthily.HealthilyApi()
     response = await api.respond_to_healthily(chosen_ids, not_chosen_ids, answer_type)
 
     return response

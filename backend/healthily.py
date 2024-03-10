@@ -149,7 +149,8 @@ class HealthilyApi:
     
     async def respond_to_healthily(self,chosen_ids,not_chosen_ids, answer_type,):
         request = self.generate_answer_object(chosen_ids,not_chosen_ids,answer_type,self.conversation_id)
-        print("Token:", access_token)
+        print("########################")
+        print(request)
         response = await self.send_response_query(request,access_token)
         print(json.dumps(response,indent=4))
         return response
