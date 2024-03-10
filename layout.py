@@ -98,7 +98,7 @@ async def parse_report(response):
     actions = [
         cl.Action(name="Download Report", value="Download", label="Download", description="Download Report")
     ]
-    content = "Please find your consulation report below: \n\n Name: " + name + "\n Gender: " + gender + "\n Age: " + str(age) + "\n\n Diagnosis Possible: " + str(diagnosis_possible) + "\n Main Symptoms: " + str(main_symptoms) + "\n Duration of Main Symptoms: " + duration + "\n\n Additional Symptoms: " + str(additional_symptoms) + "\n Unsure Symptoms: " + str(unsure_symptoms) + "\n\n Advice: " + advice + "\n Advice Level: " + advice_level + "\n Influencing Factors: " + str(influencing_factors)
+    content = "Please find your consultation report below: \n\n Name: " + name + "\n Gender: " + gender + "\n Age: " + str(age) + "\n\n Diagnosis Possible: " + str(diagnosis_possible) + "\n Main Symptoms: " + str(main_symptoms) + "\n Duration of Main Symptoms: " + duration + "\n\n Additional Symptoms: " + str(additional_symptoms) + "\n Unsure Symptoms: " + str(unsure_symptoms) + "\n\n Advice: " + advice + "\n Advice Level: " + advice_level + "\n Influencing Factors: " + str(influencing_factors)
     await cl.Message(content=content, actions=actions).send()
 
 @cl.action_callback("Download Report")
@@ -113,7 +113,7 @@ async def download_pdf(content):
     pdf.set_font("Arial", size=15)
 
     # Insert a cell with the title
-    pdf.cell(200, 10, txt="COnsultation Report", ln=1, align='C')
+    pdf.cell(200, 10, txt="Consultation Report", ln=1, align='C')
 
     # Insert a cell with the description
     pdf.cell(200, 10, txt=content, ln=2, align='C')
