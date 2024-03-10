@@ -1,0 +1,436 @@
+{
+    "report": {
+        "type": "consultation_v1",
+        "id": "fa226fd8-8866-4be1-8a0c-1cae1d29ff41",
+        "summary": {
+            "diagnosis_possible": true,
+            "extracted_symptoms": [
+                {
+                    "cui": "C0010200",
+                    "name": "Cough",
+                    "severity": "normal"
+                }
+            ],
+            "duration": "Few days",
+            "additional_symptoms": [
+                {
+                    "cui": "C0013404",
+                    "name": "Shortness of breath",
+                    "severity": "normal"
+                },
+                {
+                    "cui": "C0018681",
+                    "name": "Headache",
+                    "severity": "normal"
+                },
+                {
+                    "cui": "C0037383",
+                    "name": "Excessive sneezing",
+                    "severity": "normal"
+                },
+                {
+                    "cui": "C0042940",
+                    "name": "Change of voice",
+                    "severity": "normal"
+                },
+                {
+                    "cui": "C0242429",
+                    "name": "Sore throat",
+                    "severity": "normal"
+                },
+                {
+                    "cui": "C0476273",
+                    "name": "Unable to talk in full sentences at rest",
+                    "severity": "normal"
+                }
+            ],
+            "negative_symptoms": [
+                {
+                    "cui": "C0000737",
+                    "name": "Abdominal or pelvic pain"
+                },
+                {
+                    "cui": "C0003123",
+                    "name": "Loss of appetite"
+                },
+                {
+                    "cui": "C0003126",
+                    "name": "Loss of or reduced sense of smell"
+                },
+                {
+                    "cui": "C0007859",
+                    "name": "Neck pain"
+                },
+                {
+                    "cui": "C0008031",
+                    "name": "Chest pain"
+                },
+                {
+                    "cui": "C0011991",
+                    "name": "Diarrhoea"
+                },
+                {
+                    "cui": "C0013378",
+                    "name": "Loss of or altered sense of taste"
+                },
+                {
+                    "cui": "C0013456",
+                    "name": "Ear pain or pressure"
+                },
+                {
+                    "cui": "C0015230",
+                    "name": "Skin change on head or body or genitals"
+                },
+                {
+                    "cui": "C0015300",
+                    "name": "Bulging or protruding eye"
+                },
+                {
+                    "cui": "C0015967",
+                    "name": "High temperature"
+                },
+                {
+                    "cui": "C0019079",
+                    "name": "Coughing up blood"
+                },
+                {
+                    "cui": "C0027424",
+                    "name": "Blocked nose"
+                },
+                {
+                    "cui": "C0027497",
+                    "name": "Feeling sick/nausea"
+                },
+                {
+                    "cui": "C0028961",
+                    "name": "Passing no or minimal urine for over 12 hours"
+                },
+                {
+                    "cui": "C0030252",
+                    "name": "Feeling your heart racing or skipping a beat"
+                },
+                {
+                    "cui": "C0036973",
+                    "name": "Shivering or chills"
+                },
+                {
+                    "cui": "C0038450",
+                    "name": "Noisy breathing when breathing in"
+                },
+                {
+                    "cui": "C0039070",
+                    "name": "Brief loss of consciousness"
+                },
+                {
+                    "cui": "C0043144",
+                    "name": "Wheeze (noise on breathing out)"
+                },
+                {
+                    "cui": "C0085619",
+                    "name": "Shortness of breath when lying flat"
+                },
+                {
+                    "cui": "C0085636",
+                    "name": "Eyes very sensitive to light"
+                },
+                {
+                    "cui": "C0151786",
+                    "name": "Weakness of specific body part(s)"
+                },
+                {
+                    "cui": "C0162298",
+                    "name": "Stiffness/reduced movement of joint(s) or other body part(s)"
+                },
+                {
+                    "cui": "C0231528",
+                    "name": "Aching muscles all over body"
+                },
+                {
+                    "cui": "C0231613",
+                    "name": "Pain at the back of the head"
+                },
+                {
+                    "cui": "C0231807",
+                    "name": "Shortness of breath only on exertion"
+                },
+                {
+                    "cui": "C0234518",
+                    "name": "Slurred speech"
+                },
+                {
+                    "cui": "C0235266",
+                    "name": "Irritated/gritty/burning eye"
+                },
+                {
+                    "cui": "C0239886",
+                    "name": "Headache at front of head"
+                },
+                {
+                    "cui": "C0241057",
+                    "name": "Feeling of your skin burning on your face, body or genitalia"
+                },
+                {
+                    "cui": "C0423621",
+                    "name": "Headache over temples/sides of head"
+                },
+                {
+                    "cui": "C0423623",
+                    "name": "Pain on both sides of the head"
+                },
+                {
+                    "cui": "C0683369",
+                    "name": "Confusion"
+                },
+                {
+                    "cui": "C0700184",
+                    "name": "Itchy or scratchy throat"
+                },
+                {
+                    "cui": "C1260880",
+                    "name": "Runny nose or nasal discharge"
+                },
+                {
+                    "cui": "C1398357",
+                    "name": "Neck lump or neck swelling(s)"
+                },
+                {
+                    "cui": "C1956415",
+                    "name": "Shortness of breath that wakes you from sleep"
+                },
+                {
+                    "cui": "C2219654",
+                    "name": "Severe sore throat"
+                },
+                {
+                    "cui": "C2712054",
+                    "name": "Shortness of breath on exertion and at rest"
+                },
+                {
+                    "cui": "C2750228",
+                    "name": "Pain on only one side of head"
+                },
+                {
+                    "cui": "C2957106",
+                    "name": "Severe headache"
+                },
+                {
+                    "cui": "C4062321",
+                    "name": "Feeling so ill that you cannot do usual activities"
+                },
+                {
+                    "cui": "CM000215",
+                    "name": "Sudden onset breathlessness"
+                },
+                {
+                    "cui": "CM000413",
+                    "name": "Swelling of any area of the body (including head or neck)"
+                },
+                {
+                    "cui": "CM001052",
+                    "name": "Redness in or around the eye"
+                },
+                {
+                    "cui": "C3263722",
+                    "name": "Recent injury"
+                }
+            ],
+            "unsure_symptoms": [],
+            "consultation_triage": {
+                "triage": "emergency_symptoms",
+                "triage_advice": "The following combination you reported is concerning: <b>unable to talk in full sentences at rest</b> for <b>few days<b>. <b>Call an ambulance immediately</b>.",
+                "level": "emergency_ambulance_symptom"
+            },
+            "articles": [],
+            "articles_v3": [
+                {
+                    "yourmd_id": "coronavirus-covid19",
+                    "name": "Suspected Coronavirus (COVID-19)",
+                    "condition": {
+                        "cui": "C0206419",
+                        "probalility": 0.9759,
+                        "adzones": []
+                    },
+                    "content": {
+                        "name": "Suspected Coronavirus (COVID-19)",
+                        "medical_name": "Coronavirus (COVID-19)",
+                        "snippet": "COVID-19 is an infectious disease caused by a novel coronavirus. Most people will experience a mild to moderate respiratory illness but some people develop serious illness.",
+                        "triage": {
+                            "triage": "self",
+                            "triage_advice": "",
+                            "triage_diagnostic": "A doctor may suspect COVID-19 based on your symptoms. The doctor may also conduct a physical exam. \n\nIf you have any symptoms of COVID-19 a test will also need to be done according to local guidance.",
+                            "triage_treatment": "**How can I manage it?**\n\nMost people with Covid-19 have a mild illness and can recover at home without seeing a doctor. You should follow local guidance regarding testing, self isolation, quarantine and notification of any people you may have come into contact with.\n\nIn most cases you won\u2019t need treatment but there are a few things you can try at home to relieve your symptoms:\n\n- getting plenty of rest\n- drinking plenty of water to avoid dehydration\n- taking simple painkillers such as paracetamol\n- if you have a cough, you can try sitting upright or lying on your side rather than lying on your back\n\n**How can a health professional help?**\n\nMost people will recover from COVID-19 with self care at home, however some people may require stronger or alternative painkillers which your doctor may prescribe.",
+                            "triage_worries": "Call an ambulance or go to the emergency department immediately if you:\n\n- become very short of breath or are unable to speak in full sentences \n- develop a fast heart rate\n- cough up blood\n- collapse or feel like you may pass out\n- feel cold, sweaty or have blotchy skin\n- feel confused, agitated or very drowsy\n- stop peeing or are peeing much less than usual\n- develop severe pain\n\nYou should see a doctor urgently within 12 hours if:\n\n- you are feeling gradually more unwell\n- you feel more breathless\n- you have difficulty breathing when you move around\n- you feel very tired or weak \n- you feel shaky or shivery all the time\n- you have lost your appetite\n- you are finding it too difficult to do daily tasks like dressing or\n- washing yourself or eating\n- your symptoms are continuing after 4 weeks\n\nYou should contact your doctor within 48 hours if you think you are at higher risk of complications, suffer from any long-term health condition or are aged over 65 years. \n\nIf your symptoms change, don\u2019t improve or get worse, use this symptom checker again or see a doctor. If unsure, always see a doctor.",
+                            "triage_message": "This condition can be managed with self-care",
+                            "triage_level": "self_care"
+                        }
+                    },
+                    "substitution": "no",
+                    "substitute_articles": [],
+                    "urls": {
+                        "web": "https://www.livehealthily.com/health-library/conditions/coronavirus-covid19",
+                        "mobile": "https://www.livehealthily.com/e/health-library/conditions/coronavirus-covid19"
+                    },
+                    "metadata": {
+                        "reading_time_minutes": 12,
+                        "category_id": "coronavirus-covid19",
+                        "category_name": "Coronavirus (COVID-19)"
+                    }
+                }
+            ],
+            "consultation_id": "fa226fd8-8866-4be1-8a0c-1cae1d29ff41",
+            "notifications": [],
+            "influencing_factors": [
+                {
+                    "cui": "C0020538",
+                    "type": "if_bool",
+                    "rank": 3,
+                    "name": "High BP",
+                    "long_name": "High blood pressure",
+                    "value": {
+                        "not_sure": false,
+                        "value": true
+                    }
+                },
+                {
+                    "cui": "C0011849",
+                    "type": "if_bool",
+                    "rank": 4,
+                    "name": "Diabetes",
+                    "long_name": "Diabetes",
+                    "value": {
+                        "not_sure": false,
+                        "value": true
+                    }
+                },
+                {
+                    "cui": "C0004096",
+                    "type": "if_bool",
+                    "rank": 5,
+                    "name": "Asthma",
+                    "long_name": "Asthma",
+                    "value": {
+                        "not_sure": false,
+                        "value": false
+                    }
+                },
+                {
+                    "cui": "C0010054",
+                    "type": "if_bool",
+                    "rank": 6,
+                    "name": "CHD",
+                    "long_name": "Coronary Heart Disease",
+                    "value": {
+                        "not_sure": false,
+                        "value": false
+                    }
+                },
+                {
+                    "cui": "C0403447",
+                    "type": "if_bool",
+                    "rank": 7,
+                    "name": "CKD",
+                    "long_name": "Chronic kidney disease",
+                    "value": {
+                        "not_sure": false,
+                        "value": false
+                    }
+                },
+                {
+                    "cui": "C0024117",
+                    "type": "if_bool",
+                    "rank": 8,
+                    "name": "COPD",
+                    "long_name": "Chronic obstructive lung disease",
+                    "value": {
+                        "not_sure": false,
+                        "value": false
+                    }
+                },
+                {
+                    "cui": "C0038454",
+                    "type": "if_bool",
+                    "rank": 9,
+                    "name": "Stroke",
+                    "long_name": "Previous stroke(s)",
+                    "value": {
+                        "not_sure": false,
+                        "value": false
+                    }
+                },
+                {
+                    "cui": "C0028754",
+                    "type": "if_bool",
+                    "rank": 1,
+                    "name": "Obesity",
+                    "long_name": "Obesity",
+                    "value": {
+                        "not_sure": false,
+                        "value": false
+                    }
+                },
+                {
+                    "cui": "C0337664",
+                    "type": "if_bool",
+                    "rank": 2,
+                    "name": "Smoker",
+                    "long_name": "Smoker",
+                    "value": {
+                        "not_sure": false,
+                        "value": false
+                    }
+                }
+            ],
+            "user_profile": {
+                "year_of_birth": 1999,
+                "gender": "male"
+            }
+        }
+    },
+    "conversation": {
+        "id": "fa226fd8-8866-4be1-8a0c-1cae1d29ff41",
+        "scenario": "consultation_routine",
+        "phase": "report",
+        "available_commands": [
+            "STOP_CONVERSATION"
+        ],
+        "progress": {
+            "stage": "Onboarding",
+            "percentage": 0
+        },
+        "step_back_possible": false
+    },
+    "question": {
+        "type": "generic",
+        "messages": [
+            {
+                "type": "generic",
+                "value_type": "TEXT",
+                "value": "The following combination you reported is concerning: unable to talk in full sentences at rest for few days. Call an ambulance immediately.",
+                "meta": {}
+            },
+            {
+                "type": "generic",
+                "value_type": "TEXT",
+                "value": "Click below for your full report:",
+                "meta": {}
+            }
+        ],
+        "mandatory": true,
+        "multiple": false,
+        "choices": [
+            {
+                "type": "generic",
+                "id": "CONTINUE",
+                "label": "Continue"
+            }
+        ]
+    },
+    "user": {
+        "name": "Alter",
+        "gender": "m",
+        "age": 25,
+        "year_of_birth": 1999,
+        "other": false,
+        "initial_symptom": "cough and fever"
+    }
+}

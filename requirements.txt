@@ -1,1 +1,3 @@
 chainlit
+
+fpdf
