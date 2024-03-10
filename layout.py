@@ -27,6 +27,10 @@ all_ids = []          # List to store all available IDs
 chosen_ids = []       # List to store selected IDs
 not_chosen_ids = []   # List to store IDs not selected
 
+all_values = []          # List to store all available IDs
+chosen_values = []       # List to store selected IDs
+not_chosen_values = []   # List to store IDs not selected
+
 
 
 
@@ -53,7 +57,7 @@ async def conversation():
     #data = json.loads(response)
 
     # Extract question and choices
-    while 'report' not in response: 
+    while 'report' not in response:
         await next_question(response)
        
 
@@ -61,38 +65,72 @@ async def next_question(response):
     global all_ids
     question = ' '.join([question['value'] for question in response['question']['messages']])
     choices = {choice['id']: choice['label'] for choice in response['question']['choices']}
-    actions = []
-
-    # Reset all_ids before updating with new IDs
+    answer_type = response['question']['type']
+    options = ', '.join(choices.values())
     all_ids = list(choices.keys())
+    elements = [
+        cl.Text(name=question, content=options, display="inline")
+    ]
 
-    for choice_id, choice_label in choices.items():
+    await cl.Message(
+        content="",
+        elements=elements,
+    ).send()
+    
+    user_response = await  cl.AskUserMessage(content="Select what option(s) apply to you.",).send()
+
+    user_input = user_response['output']
+    chosen_values = user_input.split(', ')
+
+    for choice_value in chosen_values:
+        for a_key in choices.keys():
+            if choices[a_key] == choice_value :
+                chosen_ids.append(a_key)
+    
+    for id in all_ids:
+        if id not in chosen_ids:
+            not_chosen_ids.append(id)
+
+
+    api = healthily.HealthilyApi()
+    response = await api.respond_to_healthily(chosen_ids, not_chosen_ids, answer_type)
+
+    return response
+
+'''for choice_id, choice_label in choices.items():
         action = cl.Action(name="Further_Actions", value=choice_id, label=choice_label, description=choice_label)
         actions.append(action)
-    user_response = await cl.AskActionMessage(content=question, actions=actions).send()
-    
+    selected_action = await cl.AskActionMessage(content=question, actions=actions).send()
+    #await cl.Message(content=question, actions=actions).send()
+    await further_action(selected_action)'''
 
-@cl.action_callback("Further_Actions")
-async def on_further_action(action):
+
+    
+'''async def further_action(action):
     global chosen_ids, not_chosen_ids
-    print(action)
+    not_chosen_ids = all_ids.copy()
     # Get the selected ID from the action
-    selected_id = action.value
+    selected_id = action["value"]
 
-    # Remove the selected ID from all_ids
-    all_ids.remove(selected_id)
+    # Add the selected ID to the chosen_ids dictionary
+    chosen_ids[selected_id] = all_ids[selected_id]
 
-    # Check if the ID is already in chosen_ids
-    if selected_id not in chosen_ids:
-        chosen_ids.append(selected_id)
-    else:
-        chosen_ids.remove(selected_id)
-        not_chosen_ids.append(selected_id)
+    # Remove the selected ID from the not_chosen_ids dictionary
+    del not_chosen_ids[selected_id]
+
+    print("All:", all_ids)
+    print("Choosen:", chosen_ids)
+    print("Not Choosen:", not_chosen_ids)
+
+    actions = []
+    for choice_id, choice_label in not_chosen_ids.items():
+        action = cl.Action(name="Further_Actions", value=choice_id, label=choice_label, description=choice_label)
+        actions.append(action)
+    selected_action = await cl.AskActionMessage(content="Select more option or submit", actions=actions).send()
     
-    print("All IDs:", all_ids)
-    print("Chosen IDs:", chosen_ids)
-    print("Not Chosen IDs:", not_chosen_ids)
-    return chosen_ids,not_chosen_ids
+'''
+
+
 
 @cl.action_callback("Initial Assessment")
 async def on_action(action):
